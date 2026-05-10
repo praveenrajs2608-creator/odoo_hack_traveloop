@@ -84,7 +84,7 @@ export default function NotesPage({ params }: { params: { tripId: string } }) {
     const days = notes
       .map(n => n.day_number)
       .filter((d): d is number => d !== null)
-    return [...new Set(days)].sort((a, b) => a - b)
+    return Array.from(new Set(days)).sort((a, b) => a - b)
   }, [notes])
 
   const handleAdd = async () => {

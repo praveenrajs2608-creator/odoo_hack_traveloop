@@ -53,8 +53,8 @@ export function LoginForm() {
 
         {/* Title */}
         <div className="text-center mb-6">
-          <h1 className="text-2xl font-bold text-white">Welcome Back</h1>
-          <p className="text-sm text-white/40 mt-1">Sign in to your Traveloop account</p>
+          <h1 className="text-3xl font-display font-bold text-white">Welcome Back</h1>
+          <p className="text-sm text-white/40 mt-2">Sign in to your Traveloop account</p>
         </div>
 
         {/* Form */}

@@ -191,10 +191,10 @@ export default function ActivitiesPage() {
                         <p className="text-sm text-gray-500 mt-0.5 line-clamp-1">
                           {activity.description || 'No description available'}
                         </p>
-                        {activity.duration_minutes && (
+                        {activity.duration_hours && (
                           <span className="flex items-center gap-1 text-xs text-gray-400 mt-1">
                             <Clock className="w-3 h-3" />
-                            {activity.duration_minutes >= 60 ? `${Math.floor(activity.duration_minutes / 60)}h` : `${activity.duration_minutes}m`}
+                            {activity.duration_hours}h
                           </span>
                         )}
                       </div>

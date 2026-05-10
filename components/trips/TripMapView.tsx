@@ -1,5 +1,6 @@
 'use client'
 
+import 'leaflet/dist/leaflet.css'
 import { useEffect, useMemo, useState } from 'react'
 import type { Stop } from '@/types/stop'
 import { DEFAULT_CENTER, DEFAULT_ZOOM, getBounds, getRouteCoordinates } from '@/lib/mapbox'
@@ -18,7 +19,6 @@ export function TripMapView({ stops, interactive = true, className }: TripMapVie
     Promise.all([
       import('leaflet'),
       import('react-leaflet'),
-      import('leaflet/dist/leaflet.css'),
     ]).then(([L, RL]) => {
       // Fix default marker icons in Next.js/Webpack
       delete (L.default.Icon.Default.prototype as any)._getIconUrl

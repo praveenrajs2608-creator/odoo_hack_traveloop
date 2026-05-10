@@ -70,8 +70,8 @@ export function SignupForm() {
 
         {/* Title */}
         <div className="text-center mb-6">
-          <h1 className="text-2xl font-bold text-white">Registration</h1>
-          <p className="text-sm text-white/40 mt-1">Create your Traveloop account</p>
+          <h1 className="text-3xl font-display font-bold text-white">Registration</h1>
+          <p className="text-sm text-white/40 mt-2">Create your Traveloop account</p>
         </div>
 
         {/* Form */}

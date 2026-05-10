@@ -2,6 +2,18 @@ import type { Metadata } from 'next'
 import './globals.css'
 import { ToastProvider } from '@/components/ui/toast'
 
+import { Outfit, Syne } from 'next/font/google'
+
+const outfit = Outfit({ 
+  subsets: ['latin'], 
+  variable: '--font-body',
+})
+
+const syne = Syne({ 
+  subsets: ['latin'],
+  variable: '--font-display',
+})
+
 export const metadata: Metadata = {
   title: 'Traveloop — AI-Powered Travel Planning',
   description:
@@ -20,8 +32,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="antialiased">
-      <body className="min-h-screen bg-gray-50">
+    <html lang="en" className={`${outfit.variable} ${syne.variable} antialiased`}>
+      <body className="min-h-screen bg-gray-50 font-body">
         <ToastProvider>{children}</ToastProvider>
       </body>
     </html>
