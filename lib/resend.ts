@@ -1,10 +1,17 @@
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY!)
-
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://traveloop.vercel.app'
 
+const getResendClient = () => {
+  const apiKey = process.env.RESEND_API_KEY
+  if (!apiKey) {
+    throw new Error('RESEND_API_KEY is not set')
+  }
+  return new Resend(apiKey)
+}
+
 export const sendWelcomeEmail = async (email: string, name: string) => {
+  const resend = getResendClient()
   await resend.emails.send({
     from: 'Traveloop <hello@traveloop.app>',
     to: email,
@@ -43,6 +50,7 @@ export const sendTripShareEmail = async (
   tripName: string,
   shareUrl: string
 ) => {
+  const resend = getResendClient()
   await resend.emails.send({
     from: 'Traveloop <hello@traveloop.app>',
     to: toEmail,
@@ -76,6 +84,7 @@ export const sendTripReminderEmail = async (
   tripName: string,
   daysLeft: number
 ) => {
+  const resend = getResendClient()
   await resend.emails.send({
     from: 'Traveloop <hello@traveloop.app>',
     to: email,
