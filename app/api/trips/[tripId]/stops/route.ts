@@ -2,11 +2,21 @@ import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 
+async function verifyTripOwnership(supabase: ReturnType<typeof createRouteHandlerClient>, tripId: string, userId: string) {
+  const { data } = await supabase.from('trips').select('id, user_id').eq('id', tripId).single()
+  return data?.user_id === userId
+}
+
 export async function GET(
   request: Request,
   { params }: { params: { tripId: string } }
 ) {
   const supabase = createRouteHandlerClient({ cookies })
+  const { data: { session } } = await supabase.auth.getSession()
+  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+
+  const owns = await verifyTripOwnership(supabase, params.tripId, session.user.id)
+  if (!owns) return NextResponse.json({ error: 'Not found' }, { status: 404 })
 
   const { data, error } = await supabase
     .from('stops')
@@ -23,6 +33,12 @@ export async function POST(
   { params }: { params: { tripId: string } }
 ) {
   const supabase = createRouteHandlerClient({ cookies })
+  const { data: { session } } = await supabase.auth.getSession()
+  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+
+  const owns = await verifyTripOwnership(supabase, params.tripId, session.user.id)
+  if (!owns) return NextResponse.json({ error: 'Not found' }, { status: 404 })
+
   const body = await request.json()
 
   const { data, error } = await supabase

@@ -11,11 +11,14 @@ import {
   Share2, ChevronDown, ChevronUp, Sparkles, X,
   ArrowLeft,
 } from 'lucide-react'
+import type { PackingCategory } from '@/types/budget'
+import type { PackingItem } from '@/types/budget'
 import Link from 'next/link'
-import type { PackingItem, PackingCategory } from '@/types/budget'
 import type { Trip } from '@/types/trip'
 
-const CATEGORY_META: Record<string, { icon: any; color: string; bg: string }> = {
+type CategoryIconType = React.ComponentType<{ className?: string }>
+
+const CATEGORY_META: Record<string, { icon: CategoryIconType; color: string; bg: string }> = {
   documents: { icon: FileText, color: 'text-blue-600', bg: 'bg-blue-50' },
   clothing: { icon: Shirt, color: 'text-purple-600', bg: 'bg-purple-50' },
   electronics: { icon: Laptop, color: 'text-teal-600', bg: 'bg-teal-50' },
@@ -30,17 +33,17 @@ const CATEGORIES = [
 ]
 
 const DEFAULT_ITEMS: PackingItem[] = [
-  { id: '1', trip_id: '', name: 'Passport', category: 'documents' as any, is_packed: true, created_at: '' },
-  { id: '2', trip_id: '', name: 'Flight Tickets (printed)', category: 'documents' as any, is_packed: true, created_at: '' },
-  { id: '3', trip_id: '', name: 'Travel insurance', category: 'documents' as any, is_packed: true, created_at: '' },
-  { id: '4', trip_id: '', name: 'Hotel booking confirmation', category: 'documents' as any, is_packed: false, created_at: '' },
-  { id: '5', trip_id: '', name: 'Casual Shirts', category: 'clothing' as any, is_packed: true, created_at: '' },
-  { id: '6', trip_id: '', name: 'Trousers / jeans', category: 'clothing' as any, is_packed: false, created_at: '' },
-  { id: '7', trip_id: '', name: 'Comfortable walking shoes', category: 'clothing' as any, is_packed: false, created_at: '' },
-  { id: '8', trip_id: '', name: 'Light jacket / windbreaker', category: 'clothing' as any, is_packed: false, created_at: '' },
-  { id: '9', trip_id: '', name: 'Phone charger', category: 'electronics' as any, is_packed: true, created_at: '' },
-  { id: '10', trip_id: '', name: 'Universal power adapter', category: 'electronics' as any, is_packed: false, created_at: '' },
-  { id: '11', trip_id: '', name: 'Earphones / headphones', category: 'electronics' as any, is_packed: false, created_at: '' },
+  { id: '1', trip_id: '', name: 'Passport', category: 'documents', is_packed: true, created_at: '' },
+  { id: '2', trip_id: '', name: 'Flight Tickets (printed)', category: 'documents', is_packed: true, created_at: '' },
+  { id: '3', trip_id: '', name: 'Travel insurance', category: 'documents', is_packed: true, created_at: '' },
+  { id: '4', trip_id: '', name: 'Hotel booking confirmation', category: 'documents', is_packed: false, created_at: '' },
+  { id: '5', trip_id: '', name: 'Casual Shirts', category: 'clothing', is_packed: true, created_at: '' },
+  { id: '6', trip_id: '', name: 'Trousers / jeans', category: 'clothing', is_packed: false, created_at: '' },
+  { id: '7', trip_id: '', name: 'Comfortable walking shoes', category: 'clothing', is_packed: false, created_at: '' },
+  { id: '8', trip_id: '', name: 'Light jacket / windbreaker', category: 'clothing', is_packed: false, created_at: '' },
+  { id: '9', trip_id: '', name: 'Phone charger', category: 'electronics', is_packed: true, created_at: '' },
+  { id: '10', trip_id: '', name: 'Universal power adapter', category: 'electronics', is_packed: false, created_at: '' },
+  { id: '11', trip_id: '', name: 'Earphones / headphones', category: 'electronics', is_packed: false, created_at: '' },
 ]
 
 export default function PackingPage({ params }: { params: { tripId: string } }) {
@@ -98,7 +101,7 @@ export default function PackingPage({ params }: { params: { tripId: string } }) 
       id: `new-${Date.now()}`,
       trip_id: params.tripId,
       name: newItemName.trim(),
-      category: newItemCat as any,
+      category: newItemCat as PackingCategory,
       is_packed: false,
       created_at: new Date().toISOString(),
     }

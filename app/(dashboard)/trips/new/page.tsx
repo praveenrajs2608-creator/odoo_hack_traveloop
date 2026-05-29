@@ -23,7 +23,31 @@ import {
   XCircle,
   Loader2,
 } from 'lucide-react'
+import type { ActivityType, TimeOfDay } from '@/types/activity'
 import Link from 'next/link'
+
+interface AIStop {
+  city: string
+  country: string
+  latitude: number
+  longitude: number
+  activities: Array<{
+    name: string
+    description: string
+    type: ActivityType
+    estimated_cost: number
+    duration_hours: number
+    time_of_day: TimeOfDay
+    day_number: number
+  }>
+}
+
+interface AIItinerary {
+  trip_name: string
+  duration_days: number
+  estimated_total_budget: number
+  stops: AIStop[]
+}
 
 // ─── Success Popup Modal ───────────────────────────────────────────────────────
 function SuccessModal({ tripName, tripId, onClose }: { tripName: string; tripId: string; onClose: () => void }) {
@@ -173,7 +197,7 @@ export default function NewTripPage() {
   const [successData, setSuccessData] = useState<{ tripName: string; tripId: string } | null>(null)
   const [aiLoading, setAiLoading] = useState(false)
   const [aiPrompt, setAiPrompt] = useState('')
-  const [aiResult, setAiResult] = useState<any>(null)
+  const [aiResult, setAiResult] = useState<AIItinerary | null>(null)
 
   // Form state
   const [name, setName] = useState('')

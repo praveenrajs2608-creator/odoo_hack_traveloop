@@ -23,11 +23,11 @@ export function DraggableStop({ stop, index, onAddActivity, onDeleteStop }: Drag
     isDragging,
   } = useSortable({ id: stop.id })
 
-  const style = {
+  const style: React.CSSProperties = {
     transform: CSS.Transform.toString(transform),
     transition,
     opacity: isDragging ? 0.5 : 1,
-    zIndex: isDragging ? 10 : 'auto' as any,
+    zIndex: isDragging ? 10 : 'auto',
   }
 
   return (

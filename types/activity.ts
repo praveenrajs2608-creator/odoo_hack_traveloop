@@ -1,4 +1,3 @@
-// Activity types for travel planning
 export type ActivityType =
   | 'sightseeing'
   | 'food'

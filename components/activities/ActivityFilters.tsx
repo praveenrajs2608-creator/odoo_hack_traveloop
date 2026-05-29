@@ -3,8 +3,10 @@
 import { cn } from '@/lib/utils'
 import type { ActivityType } from '@/types/activity'
 
-const types: { label: string; value: ActivityType }[] = [
-  { label: 'All', value: '' as any },
+type FilterType = ActivityType | ''
+
+const types: { label: string; value: FilterType }[] = [
+  { label: 'All', value: '' },
   { label: '📸 Sightseeing', value: 'sightseeing' },
   { label: '🍽️ Food', value: 'food' },
   { label: '🏔️ Adventure', value: 'adventure' },
